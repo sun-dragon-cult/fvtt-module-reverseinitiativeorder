@@ -8,14 +8,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Build dist
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12"
-          registry-url: "https://registry.npmjs.org"
-      - run: yarn install
-      - run: yarn run release
-
       - name: Get Version
         shell: bash
         id: get-version
@@ -34,4 +26,4 @@ jobs:
           tag: ${{ steps.get-version.outputs.version }}
 
       - name: Zip dist
-        run: cd module && zip -r ../rqg.zip *
+        run: cd module && zip -r ../reverse-initiative-order.zip *
