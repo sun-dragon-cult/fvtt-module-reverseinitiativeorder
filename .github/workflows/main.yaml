@@ -22,7 +22,7 @@ jobs:
           draft: false
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./module/system.json,./releases/reverse-initiative-order.zip"
+          artifacts: "./module/module.json,./releases/reverse-initiative-order.zip"
           tag: ${{ steps.get-version.outputs.version }}
 
       - name: Zip dist
