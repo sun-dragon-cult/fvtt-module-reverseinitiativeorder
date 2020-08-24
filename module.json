@@ -1,0 +1,15 @@
+
+{
+    "name": "initiative-order",
+    "title": "Initiative Order",
+    "description": "First module experiment",
+    "version": "0.1.0",
+    "minimumCoreVersion": "0.6.5",
+    "author": "Wake",
+    "scripts": ["./initiative-order.js"],
+    "styles": [],
+    "packs": [],
+    "url": "https://github.com/wakeand/fvtt-module-initiativeorder",
+    "manifest": "https://github.com/wakeand/foundry-vtt-rqg/releases/latest/download/system.json",
+    "download": "https://github.com/qqq/fvtt-module-entityorder/archive/master.zip"
+}
