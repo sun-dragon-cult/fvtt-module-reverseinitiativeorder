@@ -24,8 +24,8 @@ class ReverseInitiativeOrder {
             .filter((c) => c.token)
             // Sort turns into initiative order: (1) initiative, (2) name, (3) tokenId
             .sort((a, b) => {
-                const ia = Number.isFinite(a.initiative) ? a.initiative : 9999;
-                const ib = Number.isFinite(b.initiative) ? b.initiative : 9999;
+                const ia = Number.isNumeric(a.initiative) ? a.initiative : 9999;
+                const ib = Number.isNumeric(b.initiative) ? b.initiative : 9999;
                 const ci = ia - ib;
                 if (ci !== 0) return ci;
                 let [an, bn] = [a.token.name || "", b.token.name || ""];
