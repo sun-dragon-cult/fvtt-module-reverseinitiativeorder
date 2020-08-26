@@ -43,3 +43,20 @@ class ReverseInitiativeOrder {
 }
 
 Hooks.on('init', ReverseInitiativeOrder.setup);
+
+
+Hooks.on("renderCombatTracker", (app, html, data) => {
+    const currentCombat = data.combats[data.currentIndex - 1];
+    html.find(".combatant").each((i, el) => {
+        const combId = el.dataset.combatantId;
+        const combatant = currentCombat.data.combatants.find((c) => c._id === combId);
+        const initdiv = el.getElementsByClassName("token-initiative")[0];
+        initdiv.innerHTML = `<input type="number" min="1" max="12" value="${combatant.initiative}">`;
+
+        initdiv.addEventListener("change", async (e) => {
+            const inputElement = e.target;
+            const combatantId = inputElement.closest("[data-combatant-id]").dataset.combatantId;
+            await currentCombat.setInitiative(combatantId, inputElement.value);
+        });
+    });
+});
