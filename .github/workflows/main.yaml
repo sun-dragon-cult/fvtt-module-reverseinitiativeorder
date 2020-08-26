@@ -22,8 +22,8 @@ jobs:
         with:
           allowUpdates: true
           name: ${{ steps.get-version.outputs.version }}
-          draft: false
-          prerelease: true
+          draft: true
+          prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./module/module.json,./reverse-initiative-order.zip"
           tag: ${{ steps.get-version.outputs.version }}
