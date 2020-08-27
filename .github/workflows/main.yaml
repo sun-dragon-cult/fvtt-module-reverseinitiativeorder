@@ -1,5 +1,5 @@
-name: Auto Release
-on: [push]
+name: Package Release
+on: [release]
 
 jobs:
   build:
