@@ -1,5 +1,5 @@
 name: Package Release
-on: [push]
+on: [create]
 
 jobs:
   build:
@@ -7,11 +7,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-
-      - name: Get Version
-        shell: bash
-        id: get-version
-        run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
 
       - name: Zip dist
         run: cd module && zip -r ../reverse-initiative-order.zip *
@@ -21,8 +16,9 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          name: ${{ steps.get-version.outputs.version }}
+          name: ${{ github.ref }}
           draft: true
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./module/module.json,./reverse-initiative-order.zip"
+          tag: ${{ github.ref }}
