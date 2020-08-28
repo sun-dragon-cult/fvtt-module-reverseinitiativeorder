@@ -8,6 +8,8 @@
     "minimumCoreVersion": "0.6.5",
     "compatibleCoreVersion": "0.6.6",
     "scripts": ["./reverse-initiative-order.js"],
+    "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/master/readme.md",
+    "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
     "license": "https://opensource.org/licenses/AGPL-3.0",
     "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
     "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json",

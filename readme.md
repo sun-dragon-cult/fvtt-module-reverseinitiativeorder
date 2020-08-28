@@ -13,8 +13,9 @@ This module is system agnostic, but overrides Combat.prototype.setupTurns and mo
 3 In the Manifest URL field paste: https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json
 
 ## Usage
-Once activated the order in the combat tracker will go from lowest to highest instead of the other way around.
-No other config necessary.
+Once activated the order in the combat tracker will go from lowest to highest instead of the other way around. It will also add an input
+field that allows you to directly set the initiative. In the module settings you can set minimum and maximum initiative allowed in that input. 
+This defaults to 1-12 (To match strike ranks in RuneQuest).
 
 ## Issues
 If you have any issues, concerns or improvement ideas, please don't hesitate to open an issue: https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues

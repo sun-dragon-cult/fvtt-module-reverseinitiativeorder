@@ -3,6 +3,7 @@ class ReverseInitiativeOrder {
     static async setup() {
         console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
         Combat.prototype.setupTurns = ReverseInitiativeOrder.setupTurns;
+        await ReverseInitiativeOrder.registerSettings();
     }
 
     static setupTurns() {
@@ -40,6 +41,24 @@ class ReverseInitiativeOrder {
         if (ui.combat) ui.combat.updateTrackedResources();
         return this.turns;
     }
+
+    static registerSettings() {
+        game.settings.register("reverse-initiative-order", "min", {
+            name: "Minimum initiative allowed",
+            scope: "world",
+            config: true,
+            type: Number,
+            default: 1,
+        });
+
+        game.settings.register("reverse-initiative-order", "max", {
+            name: "Maximum initiative allowed",
+            scope: "world",
+            config: true,
+            type: Number,
+            default: 12,
+        });
+    }
 }
 
 Hooks.on('init', ReverseInitiativeOrder.setup);
@@ -51,7 +70,9 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
         const combId = el.dataset.combatantId;
         const combatant = currentCombat.data.combatants.find((c) => c._id === combId);
         const initdiv = el.getElementsByClassName("token-initiative")[0];
-        initdiv.innerHTML = `<input type="number" min="1" max="12" value="${combatant.initiative}">`;
+        const min = game.settings.get("reverse-initiative-order","min");
+        const max = game.settings.get("reverse-initiative-order","max");
+        initdiv.innerHTML = `<input type="number" min="${min}" max="${max}" value="${combatant.initiative}">`;
 
         initdiv.addEventListener("change", async (e) => {
             const inputElement = e.target;

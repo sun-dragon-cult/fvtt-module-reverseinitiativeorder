@@ -1,5 +1,5 @@
 name: Package Release
-on: [release]
+on: [push]
 
 jobs:
   build:
@@ -26,4 +26,3 @@ jobs:
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "./module/module.json,./reverse-initiative-order.zip"
-          tag: ${{ steps.get-version.outputs.version }}
