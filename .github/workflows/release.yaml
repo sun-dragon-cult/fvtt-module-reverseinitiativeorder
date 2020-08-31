@@ -1,0 +1,113 @@
+name: Release
+on:
+  workflow_dispatch:
+
+env:
+  MODULE_NAME: reverse-initiative-order
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        id: checkout
+        uses: actions/checkout@v2
+        with:
+          # Fetch all versions for tag/changelog generation
+          fetch-depth: 0
+
+      - name: Calculate Version
+        id: calculate_version
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+
+      - name: Update Module Manifest
+        id: update_module
+        env:
+          NEW_VERSION: ${{ steps.calculate_version.outputs.new_version }}
+          NEW_TAG: ${{ steps.calculate_version.outputs.new_tag }}
+        run: |
+          echo "${NEW_VERSION}"
+          echo "${NEW_TAG}"
+          jq '. + {"version": env.NEW_VERSION, "manifest": (env.GITHUB_SERVER_URL + "/" + env.GITHUB_REPOSITORY + "/releases/download/" + env.NEW_TAG + "/" + "module.json")}' module/module.json > module/_module.json
+          mv module/_module.json module/module.json
+          jq '. + {"version": env.NEW_VERSION, "download": (env.GITHUB_SERVER_URL + "/" + env.GITHUB_REPOSITORY + "/releases/download/" + env.NEW_TAG + "/" + env.MODULE_NAME + ".zip")}' module/module.json > module/_module.json
+          mv module/_module.json module/module.json
+          jq '. + {"version": env.NEW_VERSION, "readme": (env.GITHUB_SERVER_URL + "/" + env.GITHUB_REPOSITORY + "/blob/" + env.NEW_TAG + "/" + "readme.md")}' module/module.json > module/_module.json
+          mv module/_module.json module/module.json
+          jq '. + {"version": env.NEW_VERSION, "changelog": (env.GITHUB_SERVER_URL + "/" + env.GITHUB_REPOSITORY + "/blob/" + env.NEW_TAG + "/" + "CHANGELOG.md")}' module/module.json > module/_module.json
+          mv module/_module.json module/module.json
+
+      - name: Update Changelog
+        id: update_changelog
+        env:
+          CHANGELOG: ${{ steps.calculate_version.outputs.changelog }}
+        run: |
+          mv CHANGELOG.md _CHANGELOG.md || touch _CHANGELOG.md
+          echo "${CHANGELOG}" > CHANGELOG.md
+          cat _CHANGELOG.md >> CHANGELOG.md
+          rm -f _CHANGELOG.md
+
+      - name: Commit Changes
+        id: commit_changes
+        uses: EndBug/add-and-commit@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          add: module/module.json CHANGELOG.md
+          message: |
+            chore(build): Releasing ${{ steps.calculate_version.outputs.new_tag }}
+
+      - name: Commit Tag
+        id: commit_tag
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.calculate_version.outputs.new_tag }}
+          release_name: Release ${{ steps.calculate_version.outputs.new_tag }}
+          body: |
+            Changes in this release:
+            ${{ steps.calculate_version.outputs.changelog }}
+          draft: false
+          prerelease: false
+
+      - name: Build Zip
+        id: build_zip
+        env:
+          NEW_TAG: ${{ steps.calculate_version.outputs.new_tag }}
+        run: |
+          mv module /tmp/${{ env.MODULE_NAME }}
+          cd /tmp/${{ env.MODULE_NAME }}
+          zip -r ../module.zip *
+
+      - name: Upload Release Asset zipfile
+        id: upload_release_asset_zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /tmp/module.zip
+          asset_name: ${{ env.MODULE_NAME }}.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset module manifest
+        id: upload_release_asset_manifest
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: module/module.json
+          asset_name: module.json
+          asset_content_type: application/json
