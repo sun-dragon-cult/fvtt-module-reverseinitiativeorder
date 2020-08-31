@@ -1,17 +1,20 @@
 {
-    "name": "reverse-initiative-order",
-    "type": "module",
-    "title": "Reverse Initiative Order",
-    "author": "Wake",
-    "version": "0.3.1",
-    "description": "Reverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative.",
-    "minimumCoreVersion": "0.6.5",
-    "compatibleCoreVersion": "0.6.6",
-    "scripts": ["./reverse-initiative-order.js"],
-    "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/0.3.1/readme.md",
-    "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
-    "license": "https://opensource.org/licenses/AGPL-3.0",
-    "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
-    "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/0.3.1/module.json",
-    "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/0.3.1/reverse-initiative-order.zip"
+  "name": "reverse-initiative-order",
+  "type": "module",
+  "title": "Reverse Initiative Order",
+  "author": "Wake",
+  "version": "0.3.2",
+  "description": "Reverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative.",
+  "minimumCoreVersion": "0.6.5",
+  "compatibleCoreVersion": "0.6.6",
+  "scripts": [
+    "./reverse-initiative-order.js"
+  ],
+  "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.3.2/readme.md",
+  "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
+  "license": "https://opensource.org/licenses/AGPL-3.0",
+  "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
+  "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.3.2/module.json",
+  "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.3.2/reverse-initiative-order.zip",
+  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.3.2/CHANGELOG.md"
 }
