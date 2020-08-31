@@ -86,7 +86,7 @@ jobs:
         env:
           NEW_TAG: ${{ steps.calculate_version.outputs.new_tag }}
         run: |
-          cp module /tmp/${{ env.MODULE_NAME }}
+          cp -r module /tmp/${{ env.MODULE_NAME }}
           cd /tmp/${{ env.MODULE_NAME }}
           zip -r ../module.zip *
 
