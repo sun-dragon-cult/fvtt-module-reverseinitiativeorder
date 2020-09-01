@@ -1,3 +1,13 @@
+## [0.3.6](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.3.5...v0.3.6) (2020-09-01)
+
+
+### Bug Fixes
+
+* Unset any initiative rolls defined by the system, and remove decimals. ([3ad7d51](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/3ad7d51))
+
+
+
+
 ## [0.3.5](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.3.4...v0.3.5) (2020-09-01)
 
 
