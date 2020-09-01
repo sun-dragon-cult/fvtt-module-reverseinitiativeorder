@@ -4,6 +4,10 @@ class ReverseInitiativeOrder {
         console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
         Combat.prototype.setupTurns = ReverseInitiativeOrder.setupTurns;
         await ReverseInitiativeOrder.registerSettings();
+        CONFIG.Combat.initiative = {
+            formula: null,
+            decimals: 0
+        };
     }
 
     static setupTurns() {
