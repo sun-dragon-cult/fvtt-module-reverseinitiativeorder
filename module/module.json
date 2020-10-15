@@ -5,9 +5,9 @@
   "author": "Wake",
   "version": "0.3.6",
   "description": "Reverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative.",
-  "minimumCoreVersion": "0.6.5",
-  "compatibleCoreVersion": "0.6.6",
-  "scripts": [
+  "minimumCoreVersion": "0.7.4",
+  "compatibleCoreVersion": "0.7.4",
+  "esmodules": [
     "./reverse-initiative-order.js"
   ],
   "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.3.6/readme.md",
