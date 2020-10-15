@@ -1,3 +1,13 @@
+# [0.4.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.3.6...v0.4.0) (2020-10-15)
+
+
+### Features
+
+* Make it possible to duplicate combatants ([0bbb2ee](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/0bbb2ee))
+
+
+
+
 ## [0.3.6](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.3.5...v0.3.6) (2020-09-01)
 
 
