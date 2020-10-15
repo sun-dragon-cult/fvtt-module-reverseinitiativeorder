@@ -1,3 +1,13 @@
+## [0.4.1](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.0...v0.4.1) (2020-10-15)
+
+
+### Bug Fixes
+
+* Use the same duplication icon that foundry uses by default. ([0a0555e](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/0a0555e))
+
+
+
+
 # [0.4.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.3.6...v0.4.0) (2020-10-15)
 
 
