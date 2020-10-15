@@ -5,6 +5,9 @@
 
 * Make it possible to duplicate combatants ([0bbb2ee](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/0bbb2ee))
 
+### Breaking
+
+* Deprecated support for Foundry 0.6.x - now only works with Foundry vtt 0.7.x
 
 
 
