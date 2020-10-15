@@ -3,6 +3,7 @@ class ReverseInitiativeOrder {
     static async setup() {
         console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
         Combat.prototype._sortCombatants = ReverseInitiativeOrder.sortCombatants;
+        CombatTracker.prototype._getEntryContextOptions = ReverseInitiativeOrder.getEntryContextOptions;
         await ReverseInitiativeOrder.registerSettings();
         CONFIG.Combat.initiative = {
             formula: null,
@@ -19,6 +20,30 @@ class ReverseInitiativeOrder {
         let cn = an.localeCompare(bn);
         if (cn !== 0) return cn;
         return a.tokenId - b.tokenId;
+    }
+
+    static getEntryContextOptions() {
+        return [
+            {
+                name: "Duplicate Combatant",
+                icon: '<i class="fas fa-clone"></i>',
+                callback: async (li) => {
+                    const combatant = this.combat.getCombatant(li.data('combatant-id'));
+                    await this.combat.createCombatant(combatant);
+                }
+
+            },
+            {
+                name: "COMBAT.CombatantUpdate",
+                icon: '<i class="fas fa-edit"></i>',
+                callback: this._onConfigureCombatant.bind(this)
+            },
+            {
+                name: "COMBAT.CombatantRemove",
+                icon: '<i class="fas fa-skull"></i>',
+                callback: li => this.combat.deleteCombatant(li.data('combatant-id'))
+            }
+        ];
     }
 
     static registerSettings() {
