@@ -26,7 +26,7 @@ class ReverseInitiativeOrder {
         return [
             {
                 name: "Duplicate Combatant",
-                icon: '<i class="fas fa-clone"></i>',
+                icon: '<i class="far fa-copy fa-fw"></i>',
                 callback: async (li) => {
                     const combatant = this.combat.getCombatant(li.data('combatant-id'));
                     await this.combat.createCombatant(combatant);
