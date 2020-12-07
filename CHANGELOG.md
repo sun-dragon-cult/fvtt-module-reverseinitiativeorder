@@ -1,3 +1,8 @@
+## [0.4.3](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.2...v0.4.3) (2020-12-07)
+
+
+
+
 ## [0.4.2](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.1...v0.4.2) (2020-10-22)
 
 
