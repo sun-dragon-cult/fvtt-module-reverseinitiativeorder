@@ -57,7 +57,10 @@ async function setup() {
 
 function registerRIOSettings() {
     game.settings.register("reverse-initiative-order", "multipleCombatants", {
-        name: "Allow each token to have multiple combatants. Warning, this is not fully supported by Foundry.",
+        name: "Duplicate Combatant",
+        hint: "Add a 'Duplicate Combatant' context menu item in the Combat Tracker that allows each token " +
+            "to have multiple combatants to give the possibility to get multiple actions in the same round. " +
+            "Warning, this is not fully supported by Foundry and may lead to unexpected results, especially after a Foundry update.",
         scope: "world",
         config: true,
         type: Boolean,
@@ -65,7 +68,7 @@ function registerRIOSettings() {
     });
 
     game.settings.register("reverse-initiative-order", "min", {
-        name: "Minimum initiative allowed",
+        name: "Minimum Initiative Allowed",
         scope: "world",
         config: true,
         type: Number,
@@ -73,7 +76,7 @@ function registerRIOSettings() {
     });
 
     game.settings.register("reverse-initiative-order", "max", {
-        name: "Maximum initiative allowed",
+        name: "Maximum Initiative Allowed",
         scope: "world",
         config: true,
         type: Number,
