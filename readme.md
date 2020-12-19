@@ -2,14 +2,14 @@
 This Foundry VTT module sorts the order of combatants in the combat tracker from lowest initiative to highest.
 This is useful for systems like RuneQuest that use numbered "strike ranks".
 
-It also adds a right click menu alternative "Duplicate Combatant" to make it possible to have the same actor 
+It optionally also adds a right click context menu alternative "Duplicate Combatant" to make it possible to have the same actor 
 token get multiple actions in the same round. In RuneQuest for example you can fire multiple arrows in the same 
 round if you are fast enough. 
 
 ![Screenshot](screenshots/combatTracker.jpg?raw=true)
 
 ## Compatibility
-This module is system agnostic, and requires foundry 0.7.
+This module is system agnostic, and requires Foundry VTT 0.7.
 
 ## Installation 
 1 Inside Foundry's Configuration and Setup screen, go to Add-on Modules
@@ -22,6 +22,11 @@ This module is system agnostic, and requires foundry 0.7.
 Once activated the order in the combat tracker will go from lowest to highest instead of the other way around. It will also add an input
 field that allows you to directly set the initiative. In the module settings you can set minimum and maximum initiative allowed in that input. 
 This defaults to 1-12 (To match strike ranks in RuneQuest).
+
+There is also a setting for adding a context menu item that allows combatants to be duplicated.
+This requires some monkey patching since Foundry VTT by default only allows 1:1 relation between 
+tokens and combatants. The setting is off by default and if you experience any problems with 
+it on, try turning it off since these changes are brittle.
 
 ## Issues
 If you have any issues, concerns or improvement ideas, please don't hesitate to open an issue: https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues
