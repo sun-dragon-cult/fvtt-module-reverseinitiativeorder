@@ -38,20 +38,6 @@ async function setup() {
         Combat.prototype.getCombatantByToken = getCombatantsByToken;
         Token.prototype._toggleOverlayEffect = _toggleOverlayEffect;
         Object.defineProperty(Token.prototype, 'inCombat', {get: inCombat})
-
-        // Make sure all combatants that share a token gets the same defeated flag
-        Hooks.on("preUpdateCombatant", async (combat, data, diff) => {
-            if (diff.defeated !== undefined) {
-                await Promise.all(
-                    combat.data.combatants.map(c => {
-                        if (c.token._id === data.tokenId && c.defeated !== data.defeated) {
-                            c.defeated = data.defeated;
-                            return game.combat.updateCombatant({_id: c._id, defeated: data.defeated});
-                        }
-                    })
-                )
-            }
-        });
     }
 }
 
@@ -99,11 +85,13 @@ function sortCombatants(a, b) {
 // CombatTracker - Sync defeated status among combatants that belong to the same token
 async function onToggleDefeatedStatus(c) {
     let isDefeated = !c.defeated;
+    // ***  BEGIN RIO Change ***
     const combatantsSharingToken = this.combat.combatants.filter(cb => cb.tokenId === c.tokenId);
     const updateData = combatantsSharingToken.map(cb => {
         return {_id: cb._id, defeated: isDefeated}
     })
     await this.combat.updateCombatant(updateData);
+    // ***  END RIO Change ***
     const token = canvas.tokens.get(c.tokenId);
     if ( !token ) return;
 
@@ -144,7 +132,7 @@ function getCombatantsByToken(tokenId) {
     return this.turns.filter(c => c.tokenId === tokenId);
 }
 
-// Token - Patch uses of Combat#getCombatantsByToken
+// Token - Patch use of Combat#getCombatantsByToken
 async function _toggleOverlayEffect(texture, {active}) {
 
     // Assign the overlay effect
@@ -155,15 +143,17 @@ async function _toggleOverlayEffect(texture, {active}) {
     // Set the defeated status in the combat tracker
     // TODO - deprecate this and require that active effects be used instead
     if ( (texture === CONFIG.controlIcons.defeated) && game.combat ) {
+        // ***  BEGIN RIO Change ***
         const combatants = game.combat.getCombatantByToken(this.id);
         await Promise.all(combatants.map(async combatant => {
             if (combatant) await game.combat.updateCombatant({_id: combatant._id, defeated: active})
         }));
+        // ***  END RIO Change ***
     }
     return this;
 }
 
-// Token - Patch uses of Combat#getCombatantsByToken
+// Token - Patch use of Combat#getCombatantsByToken
 function inCombat() {
     const combat = ui.combat.combat;
     if ( !combat ) return false;
