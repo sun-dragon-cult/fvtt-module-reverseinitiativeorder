@@ -1,3 +1,13 @@
+## [0.4.4](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.3...v0.4.4) (2020-12-19)
+
+
+### Bug Fixes
+
+* defeated status not synced between duplicated combatants ([#7](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues/7)) ([c2914cb](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/c2914cb))
+
+
+
+
 ## [0.4.3](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.2...v0.4.3) (2020-12-07)
 
 
