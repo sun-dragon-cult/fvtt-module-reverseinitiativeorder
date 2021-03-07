@@ -1,3 +1,13 @@
+# [0.5.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.4...v0.5.0) (2021-03-07)
+
+
+### Features
+
+* add an out out setting for the initiative input field ([74e0d60](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/74e0d60))
+
+
+
+
 ## [0.4.4](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.3...v0.4.4) (2020-12-19)
 
 
