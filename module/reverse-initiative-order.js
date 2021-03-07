@@ -1,34 +1,43 @@
 Hooks.on('init', setup);
 
-Hooks.on("renderCombatTracker", (app, html, data) => {
-    const currentCombat = data.combats[data.currentIndex - 1];
-    if (currentCombat) {
-        html.find(".combatant").each((i, el) => {
-            const combId = el.dataset.combatantId;
-            const combatant = currentCombat.data.combatants.find((c) => c._id === combId);
-            const initDiv = el.getElementsByClassName("token-initiative")[0];
-            const min = game.settings.get("reverse-initiative-order", "min");
-            const max = game.settings.get("reverse-initiative-order", "max");
-            const initiative = combatant.initiative || "";
-            initDiv.innerHTML = `<input type="number" min="${min}" max="${max}" value="${initiative}" style="color:white">`;
 
-            initDiv.addEventListener("change", async (e) => {
-                const inputElement = e.target;
-                const combatantId = inputElement.closest("[data-combatant-id]").dataset.combatantId;
-                await currentCombat.setInitiative(combatantId, inputElement.value);
+Hooks.on("renderCombatTracker", (app, html, data) => {
+    // Opt out for replacing initiative roll with input field
+    if (game.settings.get("reverse-initiative-order", "initiativeInputField")) {
+        const currentCombat = data.combats[data.currentIndex - 1];
+        if (currentCombat) {
+            html.find(".combatant").each((i, el) => {
+                const combId = el.dataset.combatantId;
+                const combatant = currentCombat.data.combatants.find((c) => c._id === combId);
+                const initDiv = el.getElementsByClassName("token-initiative")[0];
+                const min = game.settings.get("reverse-initiative-order", "min");
+                const max = game.settings.get("reverse-initiative-order", "max");
+                const initiative = combatant.initiative || "";
+                initDiv.innerHTML = `<input type="number" min="${min}" max="${max}" value="${initiative}" style="color:white">`;
+
+                initDiv.addEventListener("change", async (e) => {
+                    const inputElement = e.target;
+                    const combatantId = inputElement.closest("[data-combatant-id]").dataset.combatantId;
+                    await currentCombat.setInitiative(combatantId, inputElement.value);
+                });
             });
-        });
+        }
     }
 });
+
 
 async function setup() {
     console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
     await registerRIOSettings();
     Combat.prototype._sortCombatants = sortCombatants;
-    CONFIG.Combat.initiative = {
-        formula: null,
-        decimals: 0
-    };
+
+    // Opt out for replacing initiative roll with input field
+    if (game.settings.get("reverse-initiative-order", "initiativeInputField")) {
+        CONFIG.Combat.initiative = {
+            formula: null,
+            decimals: 0
+        };
+    }
 
     // Opt in for possibility to duplicate combatants.
     if (game.settings.get("reverse-initiative-order", "multipleCombatants")) {
@@ -51,6 +60,15 @@ function registerRIOSettings() {
         config: true,
         type: Boolean,
         default: false,
+    });
+
+    game.settings.register("reverse-initiative-order", "initiativeInputField", {
+        name: "Initiative Input Field",
+        hint: "Replace the normal initiative roll button with an input field",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
     });
 
     game.settings.register("reverse-initiative-order", "min", {
@@ -93,7 +111,7 @@ async function onToggleDefeatedStatus(c) {
     await this.combat.updateCombatant(updateData);
     // ***  END RIO Change ***
     const token = canvas.tokens.get(c.tokenId);
-    if ( !token ) return;
+    if (!token) return;
 
     // Push the defeated status to the token
     let status = CONFIG.statusEffects.find(e => e.id === CONFIG.Combat.defeatedStatusId);
@@ -142,7 +160,7 @@ async function _toggleOverlayEffect(texture, {active}) {
 
     // Set the defeated status in the combat tracker
     // TODO - deprecate this and require that active effects be used instead
-    if ( (texture === CONFIG.controlIcons.defeated) && game.combat ) {
+    if ((texture === CONFIG.controlIcons.defeated) && game.combat) {
         // ***  BEGIN RIO Change ***
         const combatants = game.combat.getCombatantByToken(this.id);
         await Promise.all(combatants.map(async combatant => {
@@ -156,7 +174,7 @@ async function _toggleOverlayEffect(texture, {active}) {
 // Token - Patch use of Combat#getCombatantsByToken
 function inCombat() {
     const combat = ui.combat.combat;
-    if ( !combat ) return false;
+    if (!combat) return false;
     const combatants = combat.getCombatantByToken(this.id);
     return combatants.some(c => c !== undefined);
 }
