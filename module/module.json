@@ -14,7 +14,7 @@
   "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
   "license": "https://opensource.org/licenses/AGPL-3.0",
   "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
-  "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.5.0/module.json",
-  "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.5.0/reverse-initiative-order.zip",
-  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.5.0/CHANGELOG.md"
+  "manifest": "https://raw.githubusercontent.com/wakeand/fvtt-module-reverseinitiativeorder/master/module/module.json",
+  "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.4.4/reverse-initiative-order.zip",
+  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.4.4/CHANGELOG.md"
 }
