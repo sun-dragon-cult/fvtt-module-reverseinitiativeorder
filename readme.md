@@ -2,14 +2,17 @@
 This Foundry VTT module sorts the order of combatants in the combat tracker from lowest initiative to highest.
 This is useful for systems like RuneQuest that use numbered "strike ranks".
 
+In addition to that it also replaces the initiative roll with an input field for quick entry. This feature 
+can be toggled off by a module setting (on be default).
+
 It optionally also adds a right click context menu alternative "Duplicate Combatant" to make it possible to have the same actor 
 token get multiple actions in the same round. In RuneQuest for example you can fire multiple arrows in the same 
-round if you are fast enough. 
+round if you are fast enough. This setting is off by default. 
 
 ![Screenshot](screenshots/combatTracker.jpg?raw=true)
 
 ## Compatibility
-This module is system agnostic, and requires Foundry VTT 0.7.
+This module is system agnostic, and requires Foundry VTT 0.7.x
 
 ## Installation 
 1 Inside Foundry's Configuration and Setup screen, go to Add-on Modules
