@@ -13,7 +13,7 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
                 const min = game.settings.get("reverse-initiative-order", "min");
                 const max = game.settings.get("reverse-initiative-order", "max");
                 const initiative = combatant.initiative || "";
-                initDiv.innerHTML = `<input type="number" min="${min}" max="${max}" value="${initiative}" style="color:white">`;
+                initDiv.innerHTML = `<input type="number" min="${min}" max="${max}" value="${initiative}">`;
 
                 initDiv.addEventListener("change", async (e) => {
                     const inputElement = e.target;

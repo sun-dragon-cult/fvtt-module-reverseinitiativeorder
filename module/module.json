@@ -10,6 +10,7 @@
   "esmodules": [
     "./reverse-initiative-order.js"
   ],
+  "styles": ["./style.css"],
   "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.5.0/readme.md",
   "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
   "license": "https://opensource.org/licenses/AGPL-3.0",
