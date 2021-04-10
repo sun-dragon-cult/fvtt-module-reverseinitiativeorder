@@ -1,3 +1,13 @@
+# [0.6.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.5.0...v0.6.0) (2021-04-10)
+
+
+### Features
+
+* only allow owners to edit initiative ([b5dbad9](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/b5dbad9))
+
+
+
+
 # [0.5.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.4.4...v0.5.0) (2021-03-07)
 
 

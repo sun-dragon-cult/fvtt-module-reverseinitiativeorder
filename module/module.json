@@ -3,19 +3,21 @@
   "type": "module",
   "title": "Reverse Initiative Order",
   "author": "Wake",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Reverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative.",
   "minimumCoreVersion": "0.7.4",
   "compatibleCoreVersion": "0.7.9",
   "esmodules": [
     "./reverse-initiative-order.js"
   ],
-  "styles": ["./style.css"],
-  "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.5.0/readme.md",
+  "styles": [
+    "./style.css"
+  ],
+  "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.6.0/readme.md",
   "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
   "license": "https://opensource.org/licenses/AGPL-3.0",
   "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
   "manifest": "https://raw.githubusercontent.com/wakeand/fvtt-module-reverseinitiativeorder/master/module/module.json",
-  "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.4.4/reverse-initiative-order.zip",
-  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.4.4/CHANGELOG.md"
+  "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v0.6.0/reverse-initiative-order.zip",
+  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v0.6.0/CHANGELOG.md"
 }
