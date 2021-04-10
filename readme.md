@@ -3,7 +3,7 @@ This Foundry VTT module sorts the order of combatants in the combat tracker from
 This is useful for systems like RuneQuest that use numbered "strike ranks".
 
 In addition to that it also replaces the initiative roll with an input field for quick entry. This feature 
-can be toggled off by a module setting (on be default).
+can be toggled off by a module setting (on be default). Only the owner of the actor (and GM) can edit the initiative value.
 
 It optionally also adds a right click context menu alternative "Duplicate Combatant" to make it possible to have the same actor 
 token get multiple actions in the same round. In RuneQuest for example you can fire multiple arrows in the same 
