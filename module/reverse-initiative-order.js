@@ -8,12 +8,12 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
         if (currentCombat) {
             html.find(".combatant").each((i, el) => {
                 const combId = el.dataset.combatantId;
-                const combatant = currentCombat.data.combatants.find((c) => c._id === combId);
+                const combatant = currentCombat.data.combatants.find((c) => c.id === combId);
                 const initDiv = el.getElementsByClassName("token-initiative")[0];
                 const min = game.settings.get("reverse-initiative-order", "min");
                 const max = game.settings.get("reverse-initiative-order", "max");
                 const initiative = combatant.initiative || "";
-                const readOnly = combatant.actor.owner ? "" : "readonly";
+                const readOnly = combatant.actor.isOwner ? "" : "readonly";
                 initDiv.innerHTML = `<input type="number" min="${min}" max="${max}" ${readOnly} value="${initiative}">`;
 
                 initDiv.addEventListener("change", async (e) => {
@@ -102,17 +102,17 @@ function sortCombatants(a, b) {
 }
 
 // CombatTracker - Sync defeated status among combatants that belong to the same token
-async function onToggleDefeatedStatus(c) {
-    let isDefeated = !c.defeated;
+async function onToggleDefeatedStatus(combatant) {
+    let isDefeated = !combatant.data.defeated;
     // ***  BEGIN RIO Change ***
-    const combatantsSharingToken = this.combat.combatants.filter(cb => cb.tokenId === c.tokenId);
+    const combatantsSharingToken = combatant.parent.combatants.filter(cb => cb.tokenId === combatant.tokenId);
     const updateData = combatantsSharingToken.map(cb => {
-        return {_id: cb._id, defeated: isDefeated}
+        return {_id: cb.id, defeated: isDefeated}
     })
-    await this.combat.updateCombatant(updateData);
+    await combatant.update(updateData);
     // ***  END RIO Change ***
-    const token = canvas.tokens.get(c.tokenId);
-    if (!token) return;
+    const token = canvas.tokens.get(combatant.data.tokenId);
+    if ( !token ) return;
 
     // Push the defeated status to the token
     let status = CONFIG.statusEffects.find(e => e.id === CONFIG.Combat.defeatedStatusId);
@@ -127,10 +127,9 @@ function getEntryContextOptions() {
             name: "Duplicate Combatant",
             icon: '<i class="far fa-copy fa-fw"></i>',
             callback: async (li) => {
-                const combatant = this.combat.getCombatant(li.data('combatant-id'));
-                await this.combat.createCombatant(combatant);
+                this.combatants.get(li.data('combatant-id'))
+                this.createEmbeddedDocuments("Combatant", [combatant]);
             }
-
         },
         {
             name: "COMBAT.CombatantUpdate",
@@ -140,7 +139,10 @@ function getEntryContextOptions() {
         {
             name: "COMBAT.CombatantRemove",
             icon: '<i class="fas fa-skull"></i>',
-            callback: li => this.combat.deleteCombatant(li.data('combatant-id'))
+            callback: li => {
+                const combatant = this.combatants.get(li.data('combatant-id'), {strict: true});
+                return combatant.delete();
+            }
         }
     ];
 }
@@ -157,7 +159,7 @@ async function _toggleOverlayEffect(texture, {active}) {
     // Assign the overlay effect
     active = active ?? this.data.overlayEffect !== texture;
     let effect = active ? texture : null;
-    await this.update({overlayEffect: effect});
+    await this.document.update({overlayEffect: effect});
 
     // Set the defeated status in the combat tracker
     // TODO - deprecate this and require that active effects be used instead
@@ -165,7 +167,7 @@ async function _toggleOverlayEffect(texture, {active}) {
         // ***  BEGIN RIO Change ***
         const combatants = game.combat.getCombatantByToken(this.id);
         await Promise.all(combatants.map(async combatant => {
-            if (combatant) await game.combat.updateCombatant({_id: combatant._id, defeated: active})
+            if (combatant) await combatant.update({defeated: active});
         }));
         // ***  END RIO Change ***
     }
