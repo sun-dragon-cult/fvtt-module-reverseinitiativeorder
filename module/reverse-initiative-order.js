@@ -1,4 +1,11 @@
+import {libWrapper} from './shim.js';
+
 Hooks.on('init', setup);
+
+Hooks.once('ready', () => {
+    if (!game.modules.get('lib-wrapper')?.active && game.user.isGM)
+        ui.notifications.error("Module Reverse Initiative Order requires the 'libWrapper' module. Please install and activate it.");
+});
 
 
 Hooks.on("renderCombatTracker", (app, html, data) => {
@@ -30,7 +37,7 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
 async function setup() {
     console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
     await registerRIOSettings();
-    Combat.prototype._sortCombatants = sortCombatants;
+    libWrapper.register('reverse-initiative-order', 'Combat.prototype._sortCombatants', wrappedSortCombatants);
 
     // Opt out for replacing initiative roll with input field
     if (game.settings.get("reverse-initiative-order", "initiativeInputField")) {
@@ -43,11 +50,8 @@ async function setup() {
     // Opt in for possibility to duplicate combatants.
     if (game.settings.get("reverse-initiative-order", "multipleCombatants")) {
         console.log('reverse-initiative-order | Opted in for multiple combatants / token');
-        CombatTracker.prototype._onToggleDefeatedStatus = onToggleDefeatedStatus;
-        CombatTracker.prototype._getEntryContextOptions = getEntryContextOptions;
-        Combat.prototype.getCombatantByToken = getCombatantsByToken;
-        Token.prototype._toggleOverlayEffect = _toggleOverlayEffect;
-        Object.defineProperty(Token.prototype, 'inCombat', {get: inCombat})
+        libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._onToggleDefeatedStatus', wrappedOnToggleDefeatedStatus);
+        libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._getEntryContextOptions', wrappedGetEntryContextOptions);
     }
 }
 
@@ -90,7 +94,7 @@ function registerRIOSettings() {
 }
 
 // Sort from low to high
-function sortCombatants(a, b) {
+function wrappedSortCombatants(wrapped, a, b) {
     const ia = Number.isNumeric(a.initiative) ? a.initiative : 9999;
     const ib = Number.isNumeric(b.initiative) ? b.initiative : 9999;
     const ci = ia - ib;
@@ -102,33 +106,28 @@ function sortCombatants(a, b) {
 }
 
 // CombatTracker - Sync defeated status among combatants that belong to the same token
-async function onToggleDefeatedStatus(combatant) {
+async function wrappedOnToggleDefeatedStatus(wrapped, combatant) {
     let isDefeated = !combatant.data.defeated;
-    // ***  BEGIN RIO Change ***
-    const combatantsSharingToken = combatant.parent.combatants.filter(cb => cb.tokenId === combatant.tokenId);
-    const updateData = combatantsSharingToken.map(cb => {
-        return {_id: cb.id, defeated: isDefeated}
-    })
-    await combatant.update(updateData);
-    // ***  END RIO Change ***
-    const token = canvas.tokens.get(combatant.data.tokenId);
-    if ( !token ) return;
-
-    // Push the defeated status to the token
-    let status = CONFIG.statusEffects.find(e => e.id === CONFIG.Combat.defeatedStatusId);
-    let effect = token.actor && status ? status : CONFIG.controlIcons.defeated;
-    await token.toggleEffect(effect, {overlay: true, active: isDefeated});
+    const combatantsSharingToken = combatant.parent.combatants
+        .filter(cb => {
+            // const isLinked = combatant?.actor.data.token.actorLink;
+            return cb.data.tokenId === combatant.data.tokenId && cb.id !== combatant.id
+        });
+    wrapped(combatant);
+    for (const c of combatantsSharingToken) {
+        await c.update({defeated: isDefeated});
+    }
 }
 
 // CombatTracker - Add a Duplicate Combatant option
-function getEntryContextOptions() {
+function wrappedGetEntryContextOptions() {
     return [
         {
             name: "Duplicate Combatant",
             icon: '<i class="far fa-copy fa-fw"></i>',
             callback: async (li) => {
-                this.combatants.get(li.data('combatant-id'))
-                this.createEmbeddedDocuments("Combatant", [combatant]);
+                const combatant = this.viewed.combatants.get(li.data("combatant-id"))
+                this.viewed.createEmbeddedDocuments("Combatant", [combatant.data]);
             }
         },
         {
@@ -140,44 +139,9 @@ function getEntryContextOptions() {
             name: "COMBAT.CombatantRemove",
             icon: '<i class="fas fa-skull"></i>',
             callback: li => {
-                const combatant = this.combatants.get(li.data('combatant-id'), {strict: true});
+                const combatant = this.viewed.combatants.get(li.data("combatant-id"));
                 return combatant.delete();
             }
         }
     ];
-}
-
-// Combat - Remove 1:1 limit on token <-> combatants.
-// Changes signature to return an array of combatants instead of a single combatant.
-function getCombatantsByToken(tokenId) {
-    return this.turns.filter(c => c.tokenId === tokenId);
-}
-
-// Token - Patch use of Combat#getCombatantsByToken
-async function _toggleOverlayEffect(texture, {active}) {
-
-    // Assign the overlay effect
-    active = active ?? this.data.overlayEffect !== texture;
-    let effect = active ? texture : null;
-    await this.document.update({overlayEffect: effect});
-
-    // Set the defeated status in the combat tracker
-    // TODO - deprecate this and require that active effects be used instead
-    if ((texture === CONFIG.controlIcons.defeated) && game.combat) {
-        // ***  BEGIN RIO Change ***
-        const combatants = game.combat.getCombatantByToken(this.id);
-        await Promise.all(combatants.map(async combatant => {
-            if (combatant) await combatant.update({defeated: active});
-        }));
-        // ***  END RIO Change ***
-    }
-    return this;
-}
-
-// Token - Patch use of Combat#getCombatantsByToken
-function inCombat() {
-    const combat = ui.combat.combat;
-    if (!combat) return false;
-    const combatants = combat.getCombatantByToken(this.id);
-    return combatants.some(c => c !== undefined);
 }
