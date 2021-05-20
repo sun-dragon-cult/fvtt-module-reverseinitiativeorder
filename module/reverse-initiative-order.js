@@ -108,14 +108,12 @@ function wrappedSortCombatants(wrapped, a, b) {
 // CombatTracker - Sync defeated status among combatants that belong to the same token
 async function wrappedOnToggleDefeatedStatus(wrapped, combatant) {
     let isDefeated = !combatant.data.defeated;
-    const combatantsSharingToken = combatant.parent.combatants
-        .filter(cb => {
-            // const isLinked = combatant?.actor.data.token.actorLink;
-            return cb.data.tokenId === combatant.data.tokenId && cb.id !== combatant.id
-        });
+    const combatantTokenIds = combatant.actor.getActiveTokens(false, true).map(t => t.id);
+    const otherCombatantsSharingToken = combatant.parent.combatants
+        .filter(cb => combatantTokenIds.includes(cb.data.tokenId) && cb.id !== combatant.id);
     wrapped(combatant);
-    for (const c of combatantsSharingToken) {
-        await c.update({defeated: isDefeated});
+    for (const cb of otherCombatantsSharingToken) {
+        await cb.update({defeated: isDefeated});
     }
 }
 
