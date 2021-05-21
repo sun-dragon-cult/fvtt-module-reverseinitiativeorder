@@ -52,6 +52,8 @@ async function setup() {
         console.log('reverse-initiative-order | Opted in for multiple combatants / token');
         libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._onToggleDefeatedStatus', wrappedOnToggleDefeatedStatus);
         libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._getEntryContextOptions', wrappedGetEntryContextOptions);
+        libWrapper.register('reverse-initiative-order', 'Token.prototype._onHoverIn', wrappedOnHoverIn);
+        libWrapper.register('reverse-initiative-order', 'Token.prototype._onHoverOut', wrappedOnHoverOut);
     }
 }
 
@@ -59,8 +61,7 @@ function registerRIOSettings() {
     game.settings.register("reverse-initiative-order", "multipleCombatants", {
         name: "Duplicate Combatant",
         hint: "Add a 'Duplicate Combatant' context menu item in the Combat Tracker that allows each token " +
-            "to have multiple combatants to give the possibility to get multiple actions in the same round. " +
-            "Warning, this is not fully supported by Foundry and may lead to unexpected results, especially after a Foundry update.",
+            "to have multiple combatants to give the possibility to get multiple actions in the same round. ",
         scope: "world",
         config: true,
         type: Boolean,
@@ -108,12 +109,39 @@ function wrappedSortCombatants(wrapped, a, b) {
 // CombatTracker - Sync defeated status among combatants that belong to the same token
 async function wrappedOnToggleDefeatedStatus(wrapped, combatant) {
     let isDefeated = !combatant.data.defeated;
-    const combatantTokenIds = combatant.actor.getActiveTokens(false, true).map(t => t.id);
-    const otherCombatantsSharingToken = combatant.parent.combatants
-        .filter(cb => combatantTokenIds.includes(cb.data.tokenId) && cb.id !== combatant.id);
+    const otherCombatantsSharingToken = _getCombatantsSharingToken(combatant);
     wrapped(combatant);
     for (const cb of otherCombatantsSharingToken) {
         await cb.update({defeated: isDefeated});
+    }
+}
+
+// Token - Highlight connected combatants when hovered
+function wrappedOnHoverIn(wrapped, event, options) {
+    wrapped(event, options);
+    const combatant = this.combatant;
+    if ( combatant ) {
+        const tracker = document.getElementById("combat-tracker");
+        _getCombatantsSharingToken(combatant)
+            .forEach(cb => {
+                const li = tracker.querySelector(`.combatant[data-combatant-id="${cb.id}"]`);
+                if ( li ) li.classList.add("hover");
+            })
+    }
+}
+
+// Token - Remove highlight of connected combatants when not hovered anymore
+function wrappedOnHoverOut(wrapped, event) {
+    wrapped(event);
+
+    const combatant = this.combatant;
+    if ( combatant ) {
+        const tracker = document.getElementById("combat-tracker");
+        _getCombatantsSharingToken(combatant)
+            .forEach(cb => {
+                const li = tracker.querySelector(`.combatant[data-combatant-id="${cb.id}"]`);
+                if ( li ) li.classList.remove("hover");
+            })
     }
 }
 
@@ -142,4 +170,10 @@ function wrappedGetEntryContextOptions() {
             }
         }
     ];
+}
+
+function _getCombatantsSharingToken(combatant) {
+    const combatantTokenIds = combatant.actor.getActiveTokens(false, true).map(t => t.id);
+    return combatant.parent.combatants
+        .filter(cb => combatantTokenIds.includes(cb.data.tokenId));
 }
