@@ -1,12 +1,6 @@
-import {libWrapper} from './shim.js';
-
-Hooks.on('init', setup);
-
-Hooks.once('ready', () => {
-    if (!game.modules.get('lib-wrapper')?.active && game.user.isGM)
-        ui.notifications.error("Module Reverse Initiative Order requires the 'libWrapper' module. Please install and activate it.");
-});
-
+import { libWrapper } from './shim.js';
+import { registerRIOSettings } from "./rio-settings.js";
+import { wrappedGetEntryContextOptions, wrappedOnHoverIn, wrappedOnHoverOut, wrappedOnToggleDefeatedStatus } from "./duplicate-combatant.js";
 
 Hooks.on("renderCombatTracker", (app, html, data) => {
     // Opt out for replacing initiative roll with input field
@@ -33,6 +27,7 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
     }
 });
 
+Hooks.on('init', setup);
 
 async function setup() {
     console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
@@ -57,43 +52,6 @@ async function setup() {
     }
 }
 
-function registerRIOSettings() {
-    game.settings.register("reverse-initiative-order", "multipleCombatants", {
-        name: "Duplicate Combatant",
-        hint: "Add a 'Duplicate Combatant' context menu item in the Combat Tracker that allows each token " +
-            "to have multiple combatants to give the possibility to get multiple actions in the same round. ",
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: false,
-    });
-
-    game.settings.register("reverse-initiative-order", "initiativeInputField", {
-        name: "Initiative Input Field",
-        hint: "Replace the normal initiative roll button with an input field",
-        scope: "world",
-        config: true,
-        type: Boolean,
-        default: true,
-    });
-
-    game.settings.register("reverse-initiative-order", "min", {
-        name: "Minimum Initiative Allowed",
-        scope: "world",
-        config: true,
-        type: Number,
-        default: 1,
-    });
-
-    game.settings.register("reverse-initiative-order", "max", {
-        name: "Maximum Initiative Allowed",
-        scope: "world",
-        config: true,
-        type: Number,
-        default: 12,
-    });
-}
-
 // Sort from low to high
 function wrappedSortCombatants(wrapped, a, b) {
     const ia = Number.isNumeric(a.initiative) ? a.initiative : 9999;
@@ -104,76 +62,4 @@ function wrappedSortCombatants(wrapped, a, b) {
     let cn = an.localeCompare(bn);
     if (cn !== 0) return cn;
     return a.tokenId - b.tokenId;
-}
-
-// CombatTracker - Sync defeated status among combatants that belong to the same token
-async function wrappedOnToggleDefeatedStatus(wrapped, combatant) {
-    let isDefeated = !combatant.data.defeated;
-    const otherCombatantsSharingToken = _getCombatantsSharingToken(combatant);
-    wrapped(combatant);
-    for (const cb of otherCombatantsSharingToken) {
-        await cb.update({defeated: isDefeated});
-    }
-}
-
-// Token - Highlight connected combatants when hovered
-function wrappedOnHoverIn(wrapped, event, options) {
-    wrapped(event, options);
-    const combatant = this.combatant;
-    if ( combatant ) {
-        const tracker = document.getElementById("combat-tracker");
-        _getCombatantsSharingToken(combatant)
-            .forEach(cb => {
-                const li = tracker.querySelector(`.combatant[data-combatant-id="${cb.id}"]`);
-                if ( li ) li.classList.add("hover");
-            })
-    }
-}
-
-// Token - Remove highlight of connected combatants when not hovered anymore
-function wrappedOnHoverOut(wrapped, event) {
-    wrapped(event);
-
-    const combatant = this.combatant;
-    if ( combatant ) {
-        const tracker = document.getElementById("combat-tracker");
-        _getCombatantsSharingToken(combatant)
-            .forEach(cb => {
-                const li = tracker.querySelector(`.combatant[data-combatant-id="${cb.id}"]`);
-                if ( li ) li.classList.remove("hover");
-            })
-    }
-}
-
-// CombatTracker - Add a Duplicate Combatant option
-function wrappedGetEntryContextOptions() {
-    return [
-        {
-            name: "Duplicate Combatant",
-            icon: '<i class="far fa-copy fa-fw"></i>',
-            callback: async (li) => {
-                const combatant = this.viewed.combatants.get(li.data("combatant-id"))
-                this.viewed.createEmbeddedDocuments("Combatant", [combatant.data]);
-            }
-        },
-        {
-            name: "COMBAT.CombatantUpdate",
-            icon: '<i class="fas fa-edit"></i>',
-            callback: this._onConfigureCombatant.bind(this)
-        },
-        {
-            name: "COMBAT.CombatantRemove",
-            icon: '<i class="fas fa-skull"></i>',
-            callback: li => {
-                const combatant = this.viewed.combatants.get(li.data("combatant-id"));
-                return combatant.delete();
-            }
-        }
-    ];
-}
-
-function _getCombatantsSharingToken(combatant) {
-    const combatantTokenIds = combatant.actor.getActiveTokens(false, true).map(t => t.id);
-    return combatant.parent.combatants
-        .filter(cb => combatantTokenIds.includes(cb.data.tokenId));
 }
