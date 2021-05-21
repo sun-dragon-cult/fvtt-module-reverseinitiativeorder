@@ -67,6 +67,16 @@ export function wrappedGetEntryContextOptions() {
                 const combatant = this.viewed.combatants.get(li.data("combatant-id"));
                 return combatant.delete();
             }
+        },
+        {
+            name: "Remove All Duplicates",
+            icon: '<i class="fas fa-skull"></i>',
+            callback: li => {
+                const combatant = this.viewed.combatants.get(li.data("combatant-id"));
+                _getCombatantsSharingToken(combatant)
+                    .forEach(c => c.delete());
+                return true;
+            }
         }
     ]
 }
