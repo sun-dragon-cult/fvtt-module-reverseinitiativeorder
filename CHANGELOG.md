@@ -25,6 +25,33 @@
 
 
 
+# [1.0.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.6.0...v1.0.0) (2021-05-23)
+
+
+### Bug Fixes
+
+* defeated status not correctly synced in all cases ([7b0238f](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/7b0238f))
+
+
+### chore
+
+* force major version ([e40ef12](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/e40ef12))
+
+
+### Features
+
+* add "remove all duplicated combatants" to context meny ([707a40c](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/707a40c))
+* add libWrapper and remake overrides ([71ead9b](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/71ead9b))
+* highlight all connected combatants when hovering token or other combatant ([9a46647](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/9a46647))
+
+
+### BREAKING CHANGES
+
+* only compatible with foundry 0.8
+
+
+
+
 # [0.6.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.5.0...v0.6.0) (2021-04-10)
 
 
