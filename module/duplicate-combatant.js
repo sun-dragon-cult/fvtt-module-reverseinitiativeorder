@@ -1,4 +1,3 @@
-
 // CombatTracker - Sync defeated status among combatants that belong to the same token
 export async function wrappedOnToggleDefeatedStatus(wrapped, combatant) {
     let isDefeated = !combatant.data.defeated;
