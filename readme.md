@@ -1,3 +1,9 @@
+![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json)
+[![GitHub Release](https://img.shields.io/github/release/wakeand/fvtt-module-reverseinitiativeorder)]()
+[![Issues](https://img.shields.io/github/issues-raw/wakeand/fvtt-module-reverseinitiativeorder?maxAge=25000)](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues)
+![Latest Release Download Count](https://img.shields.io/github/downloads/wakeand/fvtt-module-reverseinitiativeorder/latest/reverse-initiative-order.zip)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/master/LICENSE)
+
 # Reverse Initiative Order
 This Foundry VTT module sorts the order of combatants in the combat tracker from lowest initiative to highest.
 This is useful for systems like RuneQuest that use numbered "strike ranks".
