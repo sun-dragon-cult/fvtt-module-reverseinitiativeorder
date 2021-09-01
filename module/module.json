@@ -1,23 +1,31 @@
 {
   "name": "reverse-initiative-order",
-  "type": "module",
   "title": "Reverse Initiative Order",
+  "description": "<p>Does 3 things, each can be disabled in the settings</p><ul><li>Reverse the combat order to go from minimum to maximum initiative.</li><li>Provide an input field for easy entry of initiative</li><li>Add the possibility to duplicate combatants to allow a single actor to get multiple actions in one round</li></ul>",
   "author": "Wake",
+  "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
+  "license": "https://opensource.org/licenses/AGPL-3.0",
+  "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v1.0.0/readme.md",
+  "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
+  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v1.0.0/CHANGELOG.md",
+  "flags": {},
   "version": "1.0.0",
-  "description": "Reverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative. Also provides an input field for easy entry if initiative and the possibility to duplicate combatants to allow a single actor to get multiple actions in one roundReverse the combat order to go from minimum to maximum initiative. Useful for example for RuneQuest that uses strike ranks instead of initiative. Optionally also provides an input field for easy entry if initiative and the possibility to duplicate combatants to allow a single actor to get multiple actions in one round.",
   "minimumCoreVersion": "0.8.4",
-  "compatibleCoreVersion": "0.8.5",
+  "compatibleCoreVersion": "0.8.9",
+  "scripts": [],
   "esmodules": [
     "./reverse-initiative-order.js"
   ],
   "styles": [
     "./style.css"
   ],
-  "readme": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v1.0.0/readme.md",
-  "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
-  "license": "https://opensource.org/licenses/AGPL-3.0",
-  "url": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder",
+  "languages": [],
+  "packs": [],
+  "system": [],
+  "dependencies": [],
+  "socket": false,
   "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json",
   "download": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/download/v1.0.0/reverse-initiative-order.zip",
-  "changelog": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/v1.0.0/CHANGELOG.md"
+  "protected": false,
+  "coreTranslation": false
 }
