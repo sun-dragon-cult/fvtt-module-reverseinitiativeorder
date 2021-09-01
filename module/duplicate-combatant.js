@@ -56,12 +56,12 @@ export function wrappedGetEntryContextOptions() {
         },
         {
             name: "COMBAT.CombatantUpdate",
-            icon: '<i class="fas fa-edit"></i>',
+            icon: '<i class="fas fa-edit fa-fw"></i>',
             callback: this._onConfigureCombatant.bind(this)
         },
         {
             name: "COMBAT.CombatantRemove",
-            icon: '<i class="fas fa-skull"></i>',
+            icon: '<i class="fas fa-trash fa-fw"></i>',
             callback: li => {
                 const combatant = this.viewed.combatants.get(li.data("combatant-id"));
                 return combatant.delete();
@@ -69,7 +69,7 @@ export function wrappedGetEntryContextOptions() {
         },
         {
             name: "Remove All Duplicates",
-            icon: '<i class="fas fa-skull"></i>',
+            icon: '<i class="fas fa-trash fa-fw"></i>',
             callback: li => {
                 const combatant = this.viewed.combatants.get(li.data("combatant-id"));
                 _getCombatantsSharingToken(combatant)
