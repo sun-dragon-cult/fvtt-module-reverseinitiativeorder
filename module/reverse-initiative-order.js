@@ -3,7 +3,7 @@ import { registerRIOSettings } from "./rio-settings.js";
 import { wrappedGetEntryContextOptions, wrappedOnHoverIn, wrappedOnHoverOut, wrappedOnToggleDefeatedStatus } from "./duplicate-combatant.js";
 
 Hooks.on("renderCombatTracker", (app, html, data) => {
-    // Opt out for replacing initiative roll with input field
+    console.log("RIO | Replacing initiative roll with input field");
     if (game.settings.get("reverse-initiative-order", "initiativeInputField")) {
         const currentCombat = data.combats[data.currentIndex - 1];
         if (currentCombat) {
@@ -30,21 +30,24 @@ Hooks.on("renderCombatTracker", (app, html, data) => {
 Hooks.on('init', setup);
 
 async function setup() {
-    console.log('reverse-initiative-order | Initializing Reverse Initiative Order module');
+    console.log('RIO | Initializing Reverse Initiative Order module');
     await registerRIOSettings();
-    libWrapper.register('reverse-initiative-order', 'Combat.prototype._sortCombatants', wrappedSortCombatants);
 
-    // Opt out for replacing initiative roll with input field
+    if(game.settings.get("reverse-initiative-order","reverseInitiative")) {
+        console.log("RIO | Reversing initiative sort order, lowest goes first");
+        libWrapper.register('reverse-initiative-order', 'Combat.prototype._sortCombatants', wrappedSortCombatants);
+    }
+
     if (game.settings.get("reverse-initiative-order", "initiativeInputField")) {
+        // Remove initiative formula if replacing initiative roll with input field
         CONFIG.Combat.initiative = {
             formula: null,
             decimals: 0
         };
     }
 
-    // Opt in for possibility to duplicate combatants.
     if (game.settings.get("reverse-initiative-order", "multipleCombatants")) {
-        console.log('reverse-initiative-order | Opted in for multiple combatants / token');
+        console.log("RIO | Added combatant context menu to have multiple combatants per token");
         libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._onToggleDefeatedStatus', wrappedOnToggleDefeatedStatus);
         libWrapper.register('reverse-initiative-order', 'CombatTracker.prototype._getEntryContextOptions', wrappedGetEntryContextOptions);
         libWrapper.register('reverse-initiative-order', 'Token.prototype._onHoverIn', wrappedOnHoverIn);

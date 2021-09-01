@@ -1,8 +1,17 @@
 export function registerRIOSettings() {
+    game.settings.register("reverse-initiative-order", "reverseInitiative", {
+        name: "Reverse Initiative",
+        hint: "Reverse the sorting order for initiative so that lowest goes first.",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: true,
+    });
+
     game.settings.register("reverse-initiative-order", "multipleCombatants", {
         name: "Duplicate Combatant",
         hint: "Add a 'Duplicate Combatant' context menu item in the Combat Tracker that allows each token " +
-            "to have multiple combatants to give the possibility to get multiple actions in the same round. ",
+              "to have multiple combatants to give the possibility to get multiple actions in the same round.",
         scope: "world",
         config: true,
         type: Boolean,
