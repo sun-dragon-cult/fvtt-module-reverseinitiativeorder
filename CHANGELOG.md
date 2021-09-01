@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v1.0.0...v1.1.0) (2021-09-01)
+
+
+### Bug Fixes
+
+* use trash icon like foundry for remove combatant ([56df96b](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/56df96b))
+
+
+### Features
+
+* add setting to disable reverse initiative sorting ([fd27bf0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/fd27bf0))
+
+
+
+
 # [1.0.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v0.6.0...v1.0.0) (2021-05-23)
 
 
