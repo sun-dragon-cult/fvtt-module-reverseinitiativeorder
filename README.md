@@ -19,7 +19,7 @@ In RuneQuest for example you can fire multiple arrows in the same round if you a
 ![Screenshot](screenshots/combatTracker.jpg?raw=true)
 
 ## Compatibility
-This module is system agnostic, and requires Foundry VTT 0.8.x (there are older versions compatible with Foundry 0.7.x)
+This module is system agnostic, and requires Foundry VTT v9 or v0.8.x (there are older versions compatible with Foundry 0.7.x)
 
 ## Installation
 The easiest way is to use Foundry's built-in directory of modules. Simply search for "Reverse Order" and install!
