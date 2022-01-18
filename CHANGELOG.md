@@ -1,3 +1,8 @@
+## [1.1.1](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/compare/v1.1.0...v1.1.1) (2022-01-18)
+
+
+
+
 # [1.1.0](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/compare/v1.0.0...v1.1.0) (2021-09-01)
 
 
