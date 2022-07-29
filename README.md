@@ -1,4 +1,4 @@
-![](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json)
+![](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/master/module/module.json)
 ![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fsystem%3FnameType%3Dshort%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fvigoren%2Ffoundryvtt-shields-io-badge%2Fmain%2Fexamples%2Fmodule-system-single-version.json)
 [![GitHub Release](https://img.shields.io/github/release/sun-dragon-cult/fvtt-module-reverseinitiativeorder)]()
 [![Issues](https://img.shields.io/github/issues-raw/sun-dragon-cult/fvtt-module-reverseinitiativeorder?maxAge=25000)](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/issues)
@@ -20,7 +20,7 @@ In RuneQuest for example you can fire multiple arrows in the same round if you a
 ![Screenshot](screenshots/combatTracker.jpg?raw=true)
 
 ## Compatibility
-This module is system agnostic, and requires Foundry VTT v9 or v0.8.x (there are older versions compatible with Foundry 0.7.x)
+This module is system agnostic, and requires Foundry VTT v10 (there are older unsupported versions compatible with Foundry v9, v0.8.x, 0.7.x & v0.6.x)
 
 ## Installation
 The easiest way is to use Foundry's built-in directory of modules. Simply search for "Reverse Order" and install!
