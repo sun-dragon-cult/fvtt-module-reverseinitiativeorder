@@ -1,8 +1,9 @@
-![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json)
-[![GitHub Release](https://img.shields.io/github/release/wakeand/fvtt-module-reverseinitiativeorder)]()
-[![Issues](https://img.shields.io/github/issues-raw/wakeand/fvtt-module-reverseinitiativeorder?maxAge=25000)](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues)
-![Latest Release Download Count](https://img.shields.io/github/downloads/wakeand/fvtt-module-reverseinitiativeorder/latest/reverse-initiative-order.zip)
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/blob/master/LICENSE)
+![](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json)
+![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fsystem%3FnameType%3Dshort%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fvigoren%2Ffoundryvtt-shields-io-badge%2Fmain%2Fexamples%2Fmodule-system-single-version.json)
+[![GitHub Release](https://img.shields.io/github/release/sun-dragon-cult/fvtt-module-reverseinitiativeorder)]()
+[![Issues](https://img.shields.io/github/issues-raw/wakeand/fvtt-module-reverseinitiativeorder?maxAge=25000)](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/issues)
+![Latest Release Download Count](https://img.shields.io/github/downloads/sun-dragon-cult/fvtt-module-reverseinitiativeorder/latest/reverse-initiative-order.zip)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/blob/master/LICENSE)
 
 # Reverse Initiative Order
 This Foundry VTT module does 3 things, each can be disabled in the settings
