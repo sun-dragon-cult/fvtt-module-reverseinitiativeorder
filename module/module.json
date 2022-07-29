@@ -5,7 +5,7 @@
   "url": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder",
   "license": "https://opensource.org/licenses/AGPL-3.0",
   "readme": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/blob/v1.1.1/readme.md",
-  "bugs": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/issues",
+  "bugs": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/issues",
   "changelog": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/blob/v1.1.1/CHANGELOG.md",
   "version": "1.1.1",
   "compatibility": {
@@ -19,7 +19,7 @@
   "styles": [
     "style.css"
   ],
-  "manifest": "https://github.com/wakeand/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json",
+  "manifest": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json",
   "download": "https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/releases/download/v1.1.1/reverse-initiative-order.zip",
   "authors": [
     {
