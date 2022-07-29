@@ -1,3 +1,13 @@
+# [1.2.0](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/compare/v1.1.1...v1.2.0) (2022-07-29)
+
+
+### Features
+
+* update to Foundry v10 ([#26](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/issues/26)) ([a58663d](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/commit/a58663d))
+
+
+
+
 ## [1.1.1](https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/compare/v1.1.0...v1.1.1) (2022-01-18)
 
 
