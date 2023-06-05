@@ -20,10 +20,10 @@ In RuneQuest for example you can fire multiple arrows in the same round if you a
 ![Screenshot](screenshots/combatTracker.jpg?raw=true)
 
 ## Compatibility
-This module is system agnostic, and requires Foundry VTT v10 (there are older unsupported versions compatible with Foundry v9, v0.8.x, 0.7.x & v0.6.x)
+This module is system agnostic, and requires Foundry VTT v10 or v11 (there are older unsupported versions compatible with Foundry v9, v0.8.x, 0.7.x & v0.6.x)
 
 ## Installation
-The easiest way is to use Foundry's built-in directory of modules. Simply search for "Reverse Order" and install!
+The easiest way is to use Foundry's built-in directory of modules. Simply search for "Reverse Initiative" and install!
 
 In the same Foundry's built-in directory you can also specify a link to this module and install it that way: https://github.com/sun-dragon-cult/fvtt-module-reverseinitiativeorder/releases/latest/download/module.json
 

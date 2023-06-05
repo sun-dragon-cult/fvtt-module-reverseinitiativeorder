@@ -43,7 +43,7 @@
 
 ### Features
 
-* add "remove all duplicated combatants" to context meny ([707a40c](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/707a40c))
+* add "remove all duplicated combatants" to context menu ([707a40c](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/707a40c))
 * add libWrapper and remake overrides ([71ead9b](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/71ead9b))
 * highlight all connected combatants when hovering token or other combatant ([9a46647](https://github.com/wakeand/fvtt-module-reverseinitiativeorder/commit/9a46647))
 
